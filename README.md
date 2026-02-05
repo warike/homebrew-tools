@@ -1,11 +1,11 @@
-# Homebrew Tap
+# Homebrew Tools
 
-Custom Homebrew tap for warike apps.
+Custom Homebrew tap for warike tools and apps.
 
 ## Installation
 
 ```bash
-brew tap warike/tap
+brew tap warike/tools
 ```
 
 ## Available Apps
