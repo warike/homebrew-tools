@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/warike/homebrew-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/warike/homebrew-tools/actions/workflows/ci.yml)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green)
+[![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/)
 
 Custom Homebrew tap for warike tools and apps.
 
@@ -44,10 +45,10 @@ See [SECURITY.md](SECURITY.md) for our security policy.
 
 ## Contributing
 
-1. Fork this repository
-2. Add or update a cask in `Casks/`
-3. Test locally: `brew install --cask ./Casks/your-cask.rb`
-4. Submit a pull request
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) to get started. It covers:
+- Adding new casks
+- Updating existing casks
+- Testing locally
 
 ## License
 
