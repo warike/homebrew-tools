@@ -1,6 +1,6 @@
 cask "red-magic-room" do
   version "1.0.2"
-  sha256 "92339d2185cffd27868f86ecc0406a8f32dab6c0b2ad1a5a479641c4ba238b2a"
+  sha256 "e1a46958cd2b7099f4f32e3815f302613419442aa44efbc4776b7107573f3e87"
 
   url "https://github.com/warike/red-magic-room/releases/download/v#{version}/RedMagicRoom.zip"
   name "Red Magic Room"
