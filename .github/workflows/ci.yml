@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  lint:
+  lint-casks:
     name: Lint Casks
     runs-on: macos-latest
 
@@ -21,13 +21,34 @@ jobs:
       - name: Lint casks
         run: |
           for cask in Casks/*.rb; do
+            [ -f "$cask" ] || continue
             echo "Linting $cask..."
             brew audit --cask "$cask" || true
             brew style --fix "$cask" || true
           done
 
-  verify:
-    name: Verify Downloads
+  lint-formulas:
+    name: Lint Formulas
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Lint formulas
+        run: |
+          for formula in Formula/*.rb; do
+            [ -f "$formula" ] || continue
+            echo "Linting $formula..."
+            brew audit --formula "$formula" || true
+            brew style --fix "$formula" || true
+          done
+
+  verify-casks:
+    name: Verify Cask Downloads
     runs-on: macos-latest
 
     steps:
@@ -37,25 +58,77 @@ jobs:
       - name: Verify SHA256 checksums
         run: |
           for cask in Casks/*.rb; do
+            [ -f "$cask" ] || continue
             echo "Checking $cask..."
             url=$(grep -E '^\s*url "' "$cask" | sed 's/.*url "//;s/".*//' | head -1)
             sha=$(grep -E '^\s*sha256 "' "$cask" | sed 's/.*sha256 "//;s/".*//')
             version=$(grep -E '^\s*version "' "$cask" | sed 's/.*version "//;s/".*//')
 
-            # Substitute version in URL
             url=$(echo "$url" | sed "s/#{version}/$version/g")
 
             echo "  URL: $url"
             echo "  Expected SHA: $sha"
 
-            # Download and verify
             actual_sha=$(curl -sL "$url" | shasum -a 256 | cut -d' ' -f1)
             echo "  Actual SHA: $actual_sha"
 
             if [ "$sha" = "$actual_sha" ]; then
-              echo "  ✅ SHA256 matches"
+              echo "  SHA256 matches"
             else
-              echo "  ❌ SHA256 mismatch!"
+              echo "  SHA256 mismatch!"
               exit 1
             fi
+          done
+
+  verify-formulas:
+    name: Verify Formula Downloads
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Verify SHA256 checksums
+        run: |
+          for formula in Formula/*.rb; do
+            [ -f "$formula" ] || continue
+            echo "Checking $formula..."
+
+            # Extract all url+sha256 pairs (formulas can have multiple for different architectures)
+            version=$(grep -E '^\s*version "' "$formula" | sed 's/.*version "//;s/".*//')
+
+            # Get urls and shas as arrays
+            urls=()
+            shas=()
+            while IFS= read -r line; do
+              urls+=("$line")
+            done < <(grep -E '^\s*url "' "$formula" | sed 's/.*url "//;s/".*//')
+
+            while IFS= read -r line; do
+              shas+=("$line")
+            done < <(grep -E '^\s*sha256 "' "$formula" | sed 's/.*sha256 "//;s/".*//')
+
+            for i in "${!urls[@]}"; do
+              url="${urls[$i]}"
+              sha="${shas[$i]}"
+
+              # Skip placeholder shas
+              if echo "$sha" | grep -qE '^0+$'; then
+                echo "  Skipping placeholder SHA for $url"
+                continue
+              fi
+
+              echo "  URL: $url"
+              echo "  Expected SHA: $sha"
+
+              actual_sha=$(curl -sL "$url" | shasum -a 256 | cut -d' ' -f1)
+              echo "  Actual SHA: $actual_sha"
+
+              if [ "$sha" = "$actual_sha" ]; then
+                echo "  SHA256 matches"
+              else
+                echo "  SHA256 mismatch!"
+                exit 1
+              fi
+            done
           done
