@@ -94,6 +94,12 @@ jobs:
             [ -f "$formula" ] || continue
             echo "Checking $formula..."
 
+            # Assets of a private repository download only with a token; brew checks their hashes on install.
+            if grep -q GitHubPrivateReleaseDownloadStrategy "$formula"; then
+              echo "  Skipping private release assets"
+              continue
+            fi
+
             # Extract all url+sha256 pairs (formulas can have multiple for different architectures)
             version=$(grep -E '^\s*version "' "$formula" | sed 's/.*version "//;s/".*//')
 
