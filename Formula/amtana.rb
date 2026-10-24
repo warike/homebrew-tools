@@ -7,14 +7,14 @@ require_relative "../lib/github_private_release_download_strategy"
 class Amtana < Formula
   desc "Gateway that lets the Amtana apps reach the agents on this Mac"
   homepage "https://github.com/warike/omtana"
-  version "0.2.9"
+  version "0.2.10"
 
   if Hardware::CPU.arm?
-    url "https://github.com/warike/omtana/releases/download/v0.2.9/amtana_0.2.9_darwin_arm64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
-    sha256 "ea35165750da9b727ceb386f1edd864a6b978b4dfc1f8136f2dc9fe348c84989"
+    url "https://github.com/warike/omtana/releases/download/v0.2.10/amtana_0.2.10_darwin_arm64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
+    sha256 "b7aeb35f6207ec6948d41e17be013cb3749340c991fc582859caba9c82115585"
   else
-    url "https://github.com/warike/omtana/releases/download/v0.2.9/amtana_0.2.9_darwin_amd64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
-    sha256 "4270887f1334a58bf5d023c35d975f67b892149718d262221b8a808e3b876c58"
+    url "https://github.com/warike/omtana/releases/download/v0.2.10/amtana_0.2.10_darwin_amd64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
+    sha256 "8807d0af3f576e9ff5255995a5cdf644781783d465d7090081ccc24d4e27951a"
   end
 
   depends_on :macos
