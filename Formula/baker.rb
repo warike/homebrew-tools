@@ -7,14 +7,14 @@ require_relative "../lib/github_private_release_download_strategy"
 class Baker < Formula
   desc "Gateway that lets the Baker apps reach the agents on this Mac"
   homepage "https://github.com/warike/baker"
-  version "0.3.0"
+  version "0.3.1"
 
   if Hardware::CPU.arm?
-    url "https://github.com/warike/baker/releases/download/v0.3.0/baker_0.3.0_darwin_arm64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
-    sha256 "3ea3245bb1b09b077d669ec8521509eb39fc64d325bcffdbe2f68d474f64e7c2"
+    url "https://github.com/warike/baker/releases/download/v0.3.1/baker_0.3.1_darwin_arm64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
+    sha256 "16c764077043f623ec61a48ba4e003f3f3c6186b1cb8e5aab1bb927b6a6008b1"
   else
-    url "https://github.com/warike/baker/releases/download/v0.3.0/baker_0.3.0_darwin_amd64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
-    sha256 "68dbea891542f81e783c6ab9d92ac3fd7a2df7cebbaaca3451ff30946da8629a"
+    url "https://github.com/warike/baker/releases/download/v0.3.1/baker_0.3.1_darwin_amd64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
+    sha256 "935236e92225e66e4bf2c3acc628b341d7e629f6a0847c30a5d7d01f7d431fea"
   end
 
   depends_on :macos
