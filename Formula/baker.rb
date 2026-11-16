@@ -7,28 +7,28 @@ require_relative "../lib/github_private_release_download_strategy"
 class Baker < Formula
   desc "Gateway that lets the Baker apps reach the agents on this machine"
   homepage "https://github.com/warike/baker"
-  version "0.5.0"
+  version "0.5.1"
 
   on_macos do
     on_arm do
-      url "https://github.com/warike/baker/releases/download/v0.5.0/baker_0.5.0_darwin_arm64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
-      sha256 "7e4331d6abc3a78a09633d45efb0a84854b5f8a31d28e09996ddeace613df22f"
+      url "https://github.com/warike/baker/releases/download/v0.5.1/baker_0.5.1_darwin_arm64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
+      sha256 "acd74fc9bfb98e3853f381e7e5f51e811a9fde97554cdac47b27e819644f3965"
     end
     on_intel do
-      url "https://github.com/warike/baker/releases/download/v0.5.0/baker_0.5.0_darwin_amd64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
-      sha256 "da44e1ce990017d8a1c1e6c416f2e64ec91d08c699bf87197a6ac3b32d651cf4"
+      url "https://github.com/warike/baker/releases/download/v0.5.1/baker_0.5.1_darwin_amd64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
+      sha256 "9a3293ae9d5b4942d5b3232d1fe933317e5f1e9bd65d978918cffada59a6d304"
     end
   end
 
   # Agent chats and routines do not start on Linux: their sandbox is macOS only (ADR 0039).
   on_linux do
     on_arm do
-      url "https://github.com/warike/baker/releases/download/v0.5.0/baker_0.5.0_linux_arm64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
-      sha256 "caeeb6ff2adf8cf5b152d2508338235e5320e768ebdaeca8b1e9bdb5d7e728f1"
+      url "https://github.com/warike/baker/releases/download/v0.5.1/baker_0.5.1_linux_arm64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
+      sha256 "80541e1ec71963f9f1c913019c0f3fb91f075bf671c5b2f87a0a926f76328f47"
     end
     on_intel do
-      url "https://github.com/warike/baker/releases/download/v0.5.0/baker_0.5.0_linux_amd64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
-      sha256 "3fad8a989a6316964dbfd892658de66da8f973b3ce07743c3bd7eafb024c7bb2"
+      url "https://github.com/warike/baker/releases/download/v0.5.1/baker_0.5.1_linux_amd64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
+      sha256 "d086ddb11f7a5e219c6cd39cf4901b901836dc592e3ab0dce8eb7af28436681c"
     end
   end
 
